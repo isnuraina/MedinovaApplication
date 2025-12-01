@@ -1,0 +1,92 @@
+/* Miscellanoeous */
+body,
+html {
+  overflow-x: hidden;
+  padding-right: 0 !important; // resets padding right added by Bootstrap modal
+}
+
+*:-moz-full-screen,
+*:-webkit-full-screen,
+*:fullscreen *:-ms-fullscreen {
+  overflow: auto;
+}
+
+.container-scroller {
+  overflow: hidden;
+}
+
+pre {
+  background: map-get($colors, 'gray-lighter');
+  padding: 15px;
+  font-size: 14px;
+}
+
+code {
+  padding: 5px;
+  color: $danger;
+  font-family: $type1;
+  font-weight: 300;
+  font-size: $default-font-size;
+  border-radius: 4px;
+}
+#proBanner {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  background: #000;
+  .card-body-padding {
+    padding-top: .55rem ;
+    padding-bottom: .55rem;
+  }
+  .buy-now-text {
+    color: $white;
+    @media (max-width: 766px) {
+      font-size: 10px;
+      line-height: 1.5;
+    }
+  }
+  .btn {
+    &.buy-now-btn {
+      background: transparent;
+      color: #88b6ff;
+      border-radius: 10px;
+      // padding: 0.625rem 1.25rem;
+      padding: 1rem 0;
+      border-radius: 4px;
+      font-weight: bold;
+      @media (max-width: 766px) {
+        min-width: 80px;
+        padding: 1rem .5rem;
+        font-size: 12px;
+      }
+    }
+    &#bannerClose { 
+      i {
+        margin-right: 1rem;
+        font-size: 1.5rem;
+        @media (max-width: 766px) {
+          font-size: 1rem;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  a {
+    text-decoration: none;
+    i {
+      font-size: 1.5rem;
+      @media (max-width: 766px) {
+        font-size: 1rem;
+      }
+    }
+  }
+  
+}
+.proBanner-padding-top {
+  padding-top: $buy-nowbanner-padding-top !important;
+}
+.media {
+  display: flex;
+}
