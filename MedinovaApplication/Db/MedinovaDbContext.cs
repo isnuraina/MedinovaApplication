@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MedinovaApplication.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedinovaApplication.Db
 {
@@ -8,6 +9,8 @@ namespace MedinovaApplication.Db
         {
             
         }
+
+        public DbSet<MenuItem> MenuItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);

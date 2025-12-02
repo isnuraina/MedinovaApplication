@@ -1,0 +1,26 @@
+﻿@model List<MenuItem>
+
+<div class="navbar-nav ms-auto py-0">
+    @foreach (var menuItem in Model)
+    {
+        @if (menuItem.Children != null && menuItem.Children.Any())
+        {
+           
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    @menuItem.Name
+                </a>
+                <div class="dropdown-menu m-0">
+                    @foreach (var child in menuItem.Children.OrderBy(c => c.OrderIndex))
+                    {
+                        <a href="@child.Url" class="dropdown-item">@child.Name</a>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <a href="@menuItem.Url" class="nav-item nav-link">@menuItem.Name</a>
+        }
+    }
+</div>

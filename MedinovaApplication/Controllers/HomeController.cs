@@ -1,13 +1,22 @@
 using System.Diagnostics;
+using MedinovaApplication.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedinovaApplication.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IMenuService _menuService;
+
+        public HomeController(IMenuService menuService)
         {
-            return View();
+            _menuService = menuService;
+        }
+
+        public async Task <IActionResult> Index()
+        {
+            var menuItems=await _menuService.GetMenuStructureAsync();
+            return View(menuItems);
         }
     }
 }

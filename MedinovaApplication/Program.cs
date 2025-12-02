@@ -1,4 +1,5 @@
 using MedinovaApplication.Db;
+using MedinovaApplication.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<MedinovaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MedinovaApplication")));
 
 builder.Services.AddRouting(cfg => cfg.LowercaseUrls = true);
+
+builder.Services.AddScoped<IMenuService, MenuService>();
 
 var app = builder.Build();
 
