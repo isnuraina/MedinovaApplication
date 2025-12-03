@@ -1,0 +1,122 @@
+﻿@using MedinovaApplication.Areas.AdminArea.Models.VMs
+@model MenuItemVM
+
+@{
+    ViewData["Title"] = "Menyu Sil";
+}
+
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-danger">
+                <i class="mdi mdi-alert"></i> Menyu Sil
+            </h4>
+
+            <div class="alert alert-warning" role="alert">
+                <i class="mdi mdi-alert-circle"></i>
+                <strong>Diqqət!</strong> Bu menyunu silmək istədiyinizdən əminsiniz?
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th width="200">ID:</th>
+                            <td>@Model.Id</td>
+                        </tr>
+                        <tr>
+                            <th>Menyu Adı:</th>
+                            <td><strong>@Model.Name</strong></td>
+                        </tr>
+                        <tr>
+                            <th>URL:</th>
+                            <td>
+                                @if (string.IsNullOrEmpty(Model.Url))
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                                else
+                                {
+                                    <code>@Model.Url</code>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Parent:</th>
+                            <td>
+                                @if (ViewBag.ParentName != null)
+                                {
+                                    <label class="badge badge-info">@ViewBag.ParentName</label>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Əsas menyu</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Alt menyular:</th>
+                            <td>
+                                @if (Model.Haschildren)
+                                {
+                                    <label class="badge badge-danger">@ViewBag.ChildrenCount ədəd</label>
+                                    <br />
+                                    <small class="text-danger">
+                                        <i class="mdi mdi-alert"></i>
+                                        Xəbərdarlıq: Əvvəlcə alt menyuları silməlisiniz!
+                                    </small>
+                                }
+                                else
+                                {
+                                    <span class="text-success">Yoxdur</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Sıra:</th>
+                            <td><label class="badge badge-secondary">@Model.OrderIndex</label></td>
+                        </tr>
+                        <tr>
+                            <th>Status:</th>
+                            <td>
+                                @if (Model.IsActive)
+                                {
+                                    <label class="badge badge-success">Aktiv</label>
+                                }
+                                else
+                                {
+                                    <label class="badge badge-danger">Deaktiv</label>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Yaranma Tarixi:</th>
+                            <td>@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <form asp-action="Delete" method="post" class="mt-3">
+                <input type="hidden" asp-for="Id" />
+
+                <a asp-action="Index" asp-route-sub="@Model.ParentId" class="btn btn-light">
+                    <i class="mdi mdi-arrow-left"></i> Geri
+                </a>
+
+                @if (!Model.Haschildren)
+                {
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Silməyə əminsiniz?')">
+                        <i class="mdi mdi-delete"></i> Sil
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-danger" disabled>
+                        <i class="mdi mdi-block-helper"></i> Silinə bilməz
+                    </button>
+                }
+            </form>
+        </div>
+    </div>
+</div>

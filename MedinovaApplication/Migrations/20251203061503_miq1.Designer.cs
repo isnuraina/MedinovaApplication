@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedinovaApplication.Migrations
 {
     [DbContext(typeof(MedinovaDbContext))]
-    [Migration("20251202080141_miq2")]
-    partial class miq2
+    [Migration("20251203061503_miq1")]
+    partial class miq1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

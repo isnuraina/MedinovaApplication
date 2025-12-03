@@ -1,0 +1,93 @@
+﻿@using MedinovaApplication.Areas.AdminArea.Models.VMs
+@model MenuItemVM
+
+@{
+    ViewData["Title"] = "Yeni Menyu";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title mb-0">
+                    Yeni Menyu Əlavə Et
+                    @if (ViewBag.ParentName != null)
+                    {
+                        <small class="text-muted">(@ViewBag.ParentName altında)</small>
+                    }
+                </h4>
+                <a asp-action="Index" asp-route-sub="@Model.ParentId" class="btn btn-light btn-sm">
+                    <i class="mdi mdi-arrow-left"></i> Geri
+                </a>
+            </div>
+
+            <form asp-action="Create" method="post" class="forms-sample">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name">Menyu Adı *</label>
+                            <input asp-for="Name" class="form-control" placeholder="Home, About..." />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Url">URL</label>
+                            <input asp-for="Url" class="form-control" placeholder="/home, /about..." />
+                            <span asp-validation-for="Url" class="text-danger"></span>
+                            <small class="form-text text-muted">Dropdown üçün boş buraxın</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ParentId">Parent Menyu</label>
+                            <select asp-for="ParentId" class="form-select">
+                                <option value="0">-- Əsas Menyu --</option>
+                                @foreach (var parent in ViewBag.ParentMenus as List<MenuItemVM>)
+                                {
+                                    <option value="@parent.Id">@parent.Name</option>
+                                }
+                            </select>
+                            <small class="form-text text-muted">Alt menyu yaratmaq üçün parent seçin</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="OrderIndex">Sıra *</label>
+                            <input asp-for="OrderIndex" type="number" class="form-control" value="0" />
+                            <span asp-validation-for="OrderIndex" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check form-check-flat form-check-primary">
+                        <label class="form-check-label">
+                            <input asp-for="IsActive" type="checkbox" class="form-check-input" />
+                            Aktiv
+                            <i class="input-helper"></i>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="mdi mdi-content-save"></i> Yadda saxla
+                </button>
+                <a asp-action="Index" asp-route-sub="@Model.ParentId" class="btn btn-light">
+                    İmtina
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

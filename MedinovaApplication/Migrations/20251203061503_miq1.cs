@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MedinovaApplication.Migrations
 {
     /// <inheritdoc />
-    public partial class miq2 : Migration
+    public partial class miq1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
