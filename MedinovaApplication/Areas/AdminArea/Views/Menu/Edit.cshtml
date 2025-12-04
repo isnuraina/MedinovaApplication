@@ -1,0 +1,102 @@
+﻿@using MedinovaApplication.Areas.AdminArea.Models.VMs
+@model MenuItemVM
+
+@{
+    ViewData["Title"] = "Menyu Redaktə";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card" style="width: 100%; padding: 0 50px;">
+        <div class="card-body p-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title mb-0">Menyu Redaktə Et - ID: @Model.Id</h4>
+                <a asp-action="Index" asp-route-sub="@Model.ParentId" class="btn btn-light btn-sm">
+                    <i class="mdi mdi-arrow-left"></i> Geri
+                </a>
+            </div>
+
+            <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="forms-sample">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreatedDate" />
+                <input type="hidden" asp-for="RowNumber" />
+                <input type="hidden" asp-for="Haschildren" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name">Menyu Adı *</label>
+                            <input asp-for="Name" class="form-control" placeholder="Home, About..." />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Url">URL</label>
+                            <input asp-for="Url" class="form-control" placeholder="/home, /about..." />
+                            <span asp-validation-for="Url" class="text-danger"></span>
+                            <small class="form-text text-muted">Dropdown üçün boş buraxın</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ParentId">Parent Menyu</label>
+                            <select asp-for="ParentId" class="form-select">
+                                <option value="">-- Əsas Menyu --</option>
+                                @if (ViewBag.ParentMenus != null)
+                                {
+                                    @foreach (var parent in ViewBag.ParentMenus as List<MenuItemVM>)
+                                    {
+                                        <option value="@parent.Id">@parent.Name</option>
+                                    }
+                                }
+                            </select>
+                            @if (ViewBag.ParentName != null)
+                            {
+                                <small class="form-text text-muted">
+                                    Hazırda: <strong>@ViewBag.ParentName</strong>
+                                </small>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="OrderIndex">Sıra *</label>
+                            <input asp-for="OrderIndex" type="number" class="form-control" min="0" />
+                            <span asp-validation-for="OrderIndex" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check form-check-flat form-check-primary">
+                        <label class="form-check-label">
+                            <input asp-for="IsActive" type="checkbox" class="form-check-input" />
+                            Aktiv
+                            <i class="input-helper"></i>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-warning me-2">
+                        <i class="mdi mdi-content-save"></i> Yenilə
+                    </button>
+                    <a asp-action="Index" asp-route-sub="@Model.ParentId" class="btn btn-light">
+                        <i class="mdi mdi-close"></i> İmtina
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
